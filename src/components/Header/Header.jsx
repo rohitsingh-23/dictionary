@@ -2,19 +2,21 @@ import { createTheme, TextField, ThemeProvider} from "@mui/material";
 import React from "react";
 import "./Header.css";
 
-function Header({ word, setWord }) {
+function Header({ word, setWord, lightMode }) {
   const darkTheme = createTheme({
     palette: {
       primary: {
-        main: "#fff",
+        main: lightMode ? "#ffffff" : "#000000",
       },
-      mode: "dark",
+      mode: lightMode ? "light" : "dark",
     },
   });
 
   return (
     <div className="header">
-      <span className="title">{word ? word : "Search"}</span>
+      <span className={lightMode ? "title light" : "title dark"}>
+        {word ? word : "Search"}
+      </span>
       <div className="inputs">
         <ThemeProvider theme={darkTheme}>
           <TextField

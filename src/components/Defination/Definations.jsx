@@ -1,47 +1,41 @@
 import React from "react";
 import "./Definations.css";
 
-function Definations({ word, meanings }) {
+function Definations({ word, meanings, found }) {
   return (
     <div className="meanings">
-      {/* {
-        // console.log(meanings)
-        meanings[0] && word && (
-          <audio
-            // className="audio"
-            src={meanings[0].phonetics[0] && meanings[0].phonetics[0].audio}
-            controls
-          >
-            {console.log(
-              "bhvkgjvkhgck",
-              meanings[0].phonetics[0] && meanings[0].phonetics[0].audio
-            )}
-            {console.log("meanings", meanings)}
-            Your Browser does not support audio playback
-          </audio>
-        )
-      } */}
-
       {word === "" ? (
         <span className="subtitle">Start by typing a word</span>
+      ) : !found ? (
+        <span className="subtitle">Not Found</span>
       ) : (
-        meanings.map((i) =>
-          i.meanings.map((item) =>
-            item.definitions.map((def) => (
-              <div className="single">
-                {/* {console.log("def", def)} */}
-                <b>{def.definition}</b>
+        <div>
+          <div>
+            <audio controls id="voice">
+              <source
+                src={ meanings[0] && meanings[0].phonetics[0] && meanings[0].phonetics[0].audio}
+                type="audio/mp3"
+              />
+              Your browser does not support the audio tag.
+            </audio>
+          </div>
+          {meanings.map((i) =>
+            i.meanings.map((item) =>
+              item.definitions.map((def) => (
+                <div className="single">
+                  <b>{def.definition}</b>
 
-                {def.example && (
-                  <div>
-                    <hr style={{ color: "black" }} />
-                    <b>Example: </b> {def.example}
-                  </div>
-                )}
-              </div>
-            ))
-          )
-        )
+                  {def.example && (
+                    <div>
+                      <hr style={{ color: "black" }} />
+                      <b>Example: </b> {def.example}
+                    </div>
+                  )}
+                </div>
+              ))
+            )
+          )}
+        </div>
         // "j"
       )}
     </div>
